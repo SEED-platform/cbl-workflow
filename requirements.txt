@@ -1,0 +1,13 @@
+fiona==1.9.5
+geopandas==0.14.1
+mercantile==1.2.1
+openlocationcode==1.0.1
+pandas==2.1.3
+python-dotenv==1.0.0
+requests==2.31.0
+shapely==2.0.2
+six==1.16.0
+street-address==0.4.0
+tqdm==4.66.1
+usaddress==0.5.10
+-e git+https://github.com/axelstudios/buildingid-py.git@603300c8a7212b339b7e8cb7a4365be6726195aa#egg=pnnl-buildingid

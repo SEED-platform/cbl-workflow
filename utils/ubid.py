@@ -1,0 +1,16 @@
+# !/usr/bin/env python
+# encoding: utf-8
+"""
+SEED Platform (TM), Copyright (c) Alliance for Sustainable Energy, LLC, and other contributors.
+See also https://github.com/seed-platform/seed/main/LICENSE.md
+"""
+from buildingid.code import encode
+from openlocationcode.openlocationcode import MAX_DIGIT_COUNT_
+from shapely.geometry import Polygon
+
+
+def encode_ubid(geometry: Polygon):
+    (min_longitude, min_latitude, max_longitude, max_latitude) = geometry.bounds
+    centroid = geometry.centroid
+    ubid = encode(min_latitude, min_longitude, max_latitude, max_longitude, centroid.y, centroid.x, codeLength=MAX_DIGIT_COUNT_)
+    return ubid
