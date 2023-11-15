@@ -1,7 +1,7 @@
 # CBL Workflow
 > Covered Building List Workflow
 
-Given a list of addresses, this workflow will:
+Given a list of addresses, this workflow will automatically:
 - Normalize each address
 - Geocode each address via MapQuest to a lat/long coordinate
 - Download the [Microsoft Building Footprints](https://github.com/microsoft/GlobalMLBuildingFootprints/) for all areas encompassed by the geocoded coordinates
@@ -58,4 +58,9 @@ Given a list of addresses, this workflow will:
         ```
 
 ### Notes
-- This workflow is optimized to only download quadkeys and quadkey dataset-links if they haven't previously been downloaded or if an update is available
+- This workflow is optimized to be self-updating, and only downloads quadkeys and quadkey dataset-links if they haven't previously been downloaded or if an update is available
+- Possible next steps:
+  - Cache geocoding results to avoid API limit penalties when re-running
+  - Allow other geocoders like Google, without persisting the geocoding results
+  - Add distance from geocoded result to footprint boundary, `proximity_to_geocoding_coord` (intersections would be 0)
+  - Update SEEDling to include this workflow, allowing you to upload an address list file and progressively update the map with records as they're processed (with a filterable sidebar containing list of results), and allowing you to fix which footprint is selected for a specific property

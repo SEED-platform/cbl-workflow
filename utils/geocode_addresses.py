@@ -45,9 +45,6 @@ def _process_result(result):
                 continue
             admin_areas[result.get('locations')[0].get(f"adminArea{i}Type").lower()] = result.get('locations')[0].get(f"adminArea{i}")
 
-        print('RESULT', result.get('locations')[0])
-        print('admin_areas', admin_areas)
-
         return {
             'quality': quality,
             'address': result.get('locations')[0].get('street'),

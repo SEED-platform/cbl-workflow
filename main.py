@@ -4,7 +4,6 @@
 SEED Platform (TM), Copyright (c) Alliance for Sustainable Energy, LLC, and other contributors.
 See also https://github.com/seed-platform/seed/main/LICENSE.md
 """
-import csv
 import gzip
 import json
 import os
@@ -18,7 +17,9 @@ from dotenv import load_dotenv
 from shapely.geometry import Point
 
 from utils import (
+    decode_ubid,
     encode_ubid,
+    flatten,
     geocode_addresses,
     Location,
     normalize_address,
@@ -100,6 +101,9 @@ def main():
     gdf = gpd.GeoDataFrame(data=data, columns=columns)
     gdf.to_csv('data/covered-buildings.csv', index=False)
     gdf.to_file('data/covered-buildings.geojson', driver='GeoJSON')
+
+    gdf_ubid = gpd.GeoDataFrame(data=flatten([[{**datum, 'geometry': decode_ubid(datum['ubid'])}, datum] for datum in data]), columns=columns)
+    gdf_ubid.to_file('data/covered-buildings-ubid.geojson', driver='GeoJSON')
 
 
 if __name__ == '__main__':

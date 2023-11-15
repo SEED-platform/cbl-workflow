@@ -10,7 +10,6 @@ import os
 
 import requests
 
-
 file = 'data/quadkeys/dataset-links.csv'
 url = 'https://minedbuildings.blob.core.windows.net/global-buildings/dataset-links.csv'
 
