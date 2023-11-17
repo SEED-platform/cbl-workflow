@@ -36,8 +36,10 @@ Given a list of addresses, this workflow will automatically:
       }
     ]
     ```
-5. Run the workflow with `python main.py`
-6. The results will be saved to `./data/covered-buildings.csv` and `./data/covered-buildings.geojson`:
+
+### Running the Workflow
+1. Run the workflow with `python main.py`
+2. The results will be saved to `./data/covered-buildings.csv` and `./data/covered-buildings.geojson`:
     1. e.g. `covered-buildings.csv`
         ```csv
         address,city,state,postal_code,side_of_street,neighborhood,county,country,latitude,longitude,quality,footprint_match,geometry,height,ubid
@@ -63,4 +65,4 @@ Given a list of addresses, this workflow will automatically:
   - Cache geocoding results to avoid API limit penalties when re-running
   - Allow other geocoders like Google, without persisting the geocoding results
   - Add distance from geocoded result to footprint boundary, `proximity_to_geocoding_coord` (intersections would be 0)
-  - Update SEEDling to include this workflow, allowing you to upload an address list file and progressively update the map with records as they're processed (with a filterable sidebar containing list of results), and allowing you to fix which footprint is selected for a specific property
+  - Update [SEEDling](https://github.com/SEED-platform/seedling) to include this workflow, allowing you to upload an address list file and progressively update the map with records as they're processed (with a filterable sidebar containing list of results), and allowing you to fix which footprint is selected for a specific property
