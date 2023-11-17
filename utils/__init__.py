@@ -6,7 +6,6 @@ See also https://github.com/seed-platform/seed/main/LICENSE.md
 """
 from .chunk import *
 from .common import *
-from .flatten import *
 from .geocode_addresses import *
 from .normalize_address import *
 from .ubid import *

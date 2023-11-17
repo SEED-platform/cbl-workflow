@@ -6,7 +6,7 @@ See also https://github.com/seed-platform/seed/main/LICENSE.md
 """
 from buildingid.code import decode, encode
 from openlocationcode.openlocationcode import MAX_DIGIT_COUNT_
-from shapely.geometry import Polygon
+from shapely.geometry import Point, Polygon
 
 
 def encode_ubid(geometry: Polygon) -> str:
@@ -17,7 +17,7 @@ def encode_ubid(geometry: Polygon) -> str:
 
 
 # Return UBID bounding box as polygon
-def decode_ubid(ubid: str) -> Polygon:
+def bounding_box(ubid: str) -> Polygon:
     code_area = decode(ubid)
     return Polygon([
         [code_area.longitudeLo, code_area.latitudeHi],
@@ -26,3 +26,9 @@ def decode_ubid(ubid: str) -> Polygon:
         [code_area.longitudeLo, code_area.latitudeLo],
         [code_area.longitudeLo, code_area.latitudeHi],
     ])
+
+
+# Return UBID centroid as point
+def centroid(ubid: str) -> Point:
+    code_area = decode(ubid)
+    return Point(code_area.centroid.longitudeCenter, code_area.centroid.latitudeCenter)

@@ -13,13 +13,14 @@ from typing import Any
 
 import geopandas as gpd
 import mercantile
+import pandas as pd
 from dotenv import load_dotenv
 from shapely.geometry import Point
 
 from utils import (
-    decode_ubid,
+    bounding_box,
+    centroid,
     encode_ubid,
-    flatten,
     geocode_addresses,
     Location,
     normalize_address,
@@ -51,7 +52,7 @@ def main():
 
     data = geocode_addresses(locations, MAPQUEST_API_KEY)
 
-    # TODO confirm high quality geocoding results
+    # TODO confirm high quality geocoding results, and that all results have latitude/longitude properties
 
     # Find all quadkeys that the coordinates fall within
     quadkeys = set()
@@ -97,13 +98,17 @@ def main():
         datum['ubid'] = encode_ubid(datum['geometry'])
 
     # Save covered building list as csv and GeoJSON
-    columns = ['address', 'city', 'state', 'postal_code', 'side_of_street', 'neighborhood', 'county', 'country', 'latitude', 'longitude', 'quality', 'footprint_match', 'geometry', 'height', 'ubid']
+    columns = ['address', 'city', 'state', 'postal_code', 'side_of_street', 'neighborhood', 'county', 'country', 'latitude', 'longitude', 'quality', 'footprint_match', 'height', 'ubid', 'geometry']
     gdf = gpd.GeoDataFrame(data=data, columns=columns)
     gdf.to_csv('data/covered-buildings.csv', index=False)
     gdf.to_file('data/covered-buildings.geojson', driver='GeoJSON')
 
-    gdf_ubid = gpd.GeoDataFrame(data=flatten([[{**datum, 'geometry': decode_ubid(datum['ubid'])}, datum] for datum in data]), columns=columns)
-    gdf_ubid.to_file('data/covered-buildings-ubid.geojson', driver='GeoJSON')
+    # Save a custom GeoJSON with 3 layers: UBID bounding boxes, footprints, then UBID centroids
+    bounding_boxes = gpd.GeoDataFrame(data=[{'UBID Bounding Box': datum['address'], 'geometry': bounding_box(datum['ubid'])} for datum in data], columns=['UBID Bounding Box', 'geometry'])
+    centroids = gpd.GeoDataFrame(data=[{'UBID Centroid': datum['address'], 'geometry': centroid(datum['ubid'])} for datum in data], columns=['UBID Centroid', 'geometry'])
+    gdf_ubid = pd.concat([bounding_boxes, gdf, centroids])
+    with open('data/covered-buildings-ubid.geojson', 'w') as f:
+        f.write(gdf_ubid.to_json(drop_id=True, na='drop'))
 
 
 if __name__ == '__main__':
