@@ -6,7 +6,7 @@ authors = ["Alex Swindler <alex.swinder@nrel.gov>", "Nicholas Long <nicholas.lon
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.9, <3.13"
 
 pnnl-buildingid = {git = "git@github.com:seed-platform/buildingid.git", rev = "master"}
 usaddress = "^0.5.10"
