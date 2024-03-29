@@ -11,12 +11,14 @@ Given a list of addresses, this workflow will automatically:
 
 ### Prerequisites
 1. Optionally create a Virtualenv Environment
-2. Run `pip install -r requirements.txt`
-3. Create a `.env` file in the root with your MapQuest API key in the format:
+2. Dependencies are managed through Poetry, install with `pip install poetry`
+3. Install dependencies with `poetry install`
+4. Create a `.env` file in the root with your MapQuest API key in the format:
     ```dotenv
     MAPQUEST_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     ```
-4. Create a `locations.json` file in the root containing a list of addresses to process in the format:
+    Note that if an env key for MAPQUEST_API_KEY exists in your profile, then it use that over the .env file.
+5. Create a `locations.json` file in the root containing a list of addresses to process in the format:
     ```json
     [
       {
@@ -38,7 +40,7 @@ Given a list of addresses, this workflow will automatically:
     ```
 
 ### Running the Workflow
-1. Run the workflow with `python main.py`
+1. Run the workflow with `python main.py` or `poetry run python main.py`
 2. The results will be saved to `./data/covered-buildings.csv` and `./data/covered-buildings.geojson`:
     1. e.g. `covered-buildings.csv`
         ```csv

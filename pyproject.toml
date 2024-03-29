@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "cbl-workflow"
+version = "0.1.0"
+description = ""
+authors = ["Alex Swindler <alex.swinder@nrel.gov>", "Nicholas Long <nicholas.long@nrel.gov>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+pnnl-buildingid = {git = "git@github.com:seed-platform/buildingid.git", rev = "master"}
+usaddress = "^0.5.10"
+street-address = "^0.4.0"
+geopandas = "^0.14.3"
+mercantile = "^1.2.1"
+python-dotenv = "^1.0.1"
+requests = "^2.31.0"
+shapely = "^2.0.3"
+setuptools = "^69.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

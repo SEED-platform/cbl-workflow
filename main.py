@@ -16,17 +16,12 @@ import mercantile
 import pandas as pd
 from dotenv import load_dotenv
 from shapely.geometry import Point
-
-from utils import (
-    bounding_box,
-    centroid,
-    encode_ubid,
-    geocode_addresses,
-    Location,
-    normalize_address,
-    update_dataset_links,
-    update_quadkeys,
-)
+from utils.common import Location
+from utils.ubid import bounding_box, centroid, encode_ubid
+from utils.geocode_addresses import geocode_addresses
+from utils.normalize_address import normalize_address
+from utils.update_dataset_links import update_dataset_links
+from utils.update_quadkeys import update_quadkeys
 
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 warnings.filterwarnings('ignore', category=UserWarning)

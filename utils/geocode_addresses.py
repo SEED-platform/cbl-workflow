@@ -6,7 +6,8 @@ See also https://github.com/seed-platform/seed/main/LICENSE.md
 """
 import requests
 
-from utils import chunk, Location
+from utils.chunk import chunk
+from utils.common import Location
 
 
 class MapQuestAPIKeyError(Exception):
