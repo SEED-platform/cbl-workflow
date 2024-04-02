@@ -4,23 +4,23 @@ SEED Platform (TM), Copyright (c) Alliance for Sustainable Energy, LLC, and othe
 See also https://github.com/seed-platform/seed/main/LICENSE.md
 """
 
-import os
+from pathlib import Path
 
 import pandas as pd
 import requests
 from tqdm import tqdm
 
 
-def update_quadkeys(quadkeys: list[int]):
-    """
-    Downloads a list of quadkeys
+def update_quadkeys(quadkeys: list[int], save_directory: Path = Path("data/quadkeys")):
+    """Downloads a list of quadkeys.
     Skip the download if it has already been downloaded, and it is up-to-date
     """
-    df = pd.read_csv("data/quadkeys/dataset-links.csv")
+    save_directory.mkdir(parents=True, exist_ok=True)
+    df = pd.read_csv(save_directory / "dataset-links.csv")
 
     for quadkey in tqdm(quadkeys):
         download = True
-        file = f"data/quadkeys/{quadkey}.geojsonl.gz"
+        quadkey_file = save_directory / f"{quadkey}.geojsonl.gz"
         rows = df[df["QuadKey"] == quadkey]
         if rows.shape[0] == 1:
             url = rows.iloc[0]["Url"]
@@ -29,11 +29,11 @@ def update_quadkeys(quadkeys: list[int]):
         else:
             raise ValueError(f"QuadKey not found in dataset: {quadkey}")
 
-        if os.path.exists(file):
-            local_size = os.path.getsize(file)
+        if quadkey_file.exists():
+            local_size = quadkey_file.stat().st_size
             remote_size = int(requests.head(url).headers["Content-Length"])
             download = local_size != remote_size
 
         if download:
-            with open(file, "wb") as f:
+            with open(quadkey_file, "wb") as f:
                 f.write(requests.get(url).content)
