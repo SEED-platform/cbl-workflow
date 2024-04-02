@@ -1,5 +1,8 @@
 __pycache__
-/.env
-/.idea/
+.env
+.idea
+.python-version
+.ruff_cache
+
 /data/
 /locations.json

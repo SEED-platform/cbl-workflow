@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "cbl-workflow"
+version = "0.1.0"
+description = ""
+authors = ["Alex Swindler <alex.swinder@nrel.gov>", "Nicholas Long <nicholas.long@nrel.gov>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9, <3.13"
+
+pnnl-buildingid = {git = "git@github.com:seed-platform/buildingid.git", rev = "master"}
+usaddress = "^0.5.10"
+street-address = "^0.4.0"
+geopandas = "^0.14.3"
+mercantile = "^1.2.1"
+python-dotenv = "^1.0.1"
+requests = "^2.31.0"
+shapely = "^2.0.3"
+setuptools = "^69.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# https://docs.astral.sh/ruff/tutorial/#configuration
+[tool.ruff]
+fix = true # automatically fix problems if possible
+line-length = 120
+
+# https://docs.astral.sh/ruff/linter/#rule-selection
+[tool.ruff.lint]
+extend-select = ["RUF", "E", "F", "I", "UP", "N", "S", "BLE", "A", "C4", "T10", "ISC", "ICN", "PT",
+"Q", "SIM", "TID", "ARG", "DTZ", "PD", "PGH", "PLC", "PLE", "PLR", "PLW", "PIE", "COM"] # Enable these rules
+ignore = ["PLR0913", "PLR2004", "PLR0402", "COM812", "COM819", "SIM108", "ARG002", "ISC001", "S603", "S607", "S701",
+          "PD901", "N806", "S113", "SIM115", "S324", "BLE001"] # except for these specific errors
+
+[tool.ruff.lint.pylint]
+# system_parameters.py has many file lookups that necessitate nested statements & branches
+# Raise the allowed limits the least possible amount https://docs.astral.sh/ruff/settings/#pylint-max-branches
+max-statements = 58
+max-branches = 24
+
+# https://docs.astral.sh/ruff/formatter/#configuration
+[tool.ruff.format]
+# quote-style = "double"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"] # assert statements are allowed in tests, and paths are safe
+"geojson_modelica_translator/model_connectors/load_connectors/teaser.py" = ["PLR0915"]
+# Lots of statements in the teaser post-processing. Don't think we can avoid it.
+"geojson_modelica_translator/model_connectors/couplings/diagram.py" = ["E501"]
+# Only needed for _parse_coupling_graph docstring
