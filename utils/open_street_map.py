@@ -235,7 +235,7 @@ def find_nearest_building(lat, lon):
 
 
 def process_dataframe_for_osm_buildings(
-    geodataframe: GeoDataFrame, method: str = "geometry_centroid"
+    geodataframe: GeoDataFrame, method: str = "geometry_centroid", copy_source_columns: bool = False
 ) -> list[list, list]:
     """Process a dataframe that has a geometry column and return a list of nearest OSM buildings
     along with polygons of the building footprints.
@@ -252,6 +252,7 @@ def process_dataframe_for_osm_buildings(
     Args:
         geodataframe (GeoDataFrame): Dataframe to process and add results to.
         method (str, optional): Which field contains the geo data. Defaults to 'geometry_centoid'.
+        copy_source_columns (bool, optional): Copy the source columns to the result. Defaults to False.
 
     Returns:
         list[list, list]: The results in a dictionary format and a list of errors that occurred during processing.
@@ -316,15 +317,18 @@ def process_dataframe_for_osm_buildings(
                     result["osm_polygon"] = polygon
 
             # save the other building information of interest, that lives in the tags elements
-            if "tags" in building:
-                for key in building["tags"]:
-                    result[key] = building["tags"][key]
+            if len(building["elements"]) > 0 and "tags" in building["elements"][0]:
+                for key in building["elements"][0]["tags"]:
+                    result[key] = building["elements"][0]["tags"][key]
 
         # Save all the other fields in the dataframe to the result, if the fields are not
         # yet in the result.
-        for key in row:
-            if key not in result:
-                result[key] = row[key]
+        if copy_source_columns:
+            # iterative over each field in the dataframe
+            for key in geodataframe.columns:
+                if key not in result:
+                    print(f"Adding {key} to the result which is {result}")
+                    result[key] = row[key]
 
         results.append(result)
 
@@ -380,8 +384,13 @@ def process_dataframe_for_osm_buildings(
             del result["osm_polygon"]
 
         # calculate UBID
-        result["ubid"] = encode_ubid(result["geometry"])
-        result["ubid_bounding_box"] = bounding_box(result["ubid"])
-        result["ubid_centroid"] = centroid(result["ubid"])
+        if "geometry" in result:
+            result["ubid"] = encode_ubid(result["geometry"])
+            result["ubid_bounding_box"] = bounding_box(result["ubid"])
+            result["ubid_centroid"] = centroid(result["ubid"])
+        else:
+            result["ubid"] = None
+            result["ubid_bounding_box"] = None
+            result["ubid_centroid"] = None
 
     return results, error_processing
