@@ -4,5 +4,7 @@ __pycache__
 .python-version
 .ruff_cache
 
+dist
+
 /data/
 /locations.json
