@@ -4,6 +4,7 @@
   "words": [
     "autoload",
     "geodataframe",
+    "notna",
     "quadkey",
     "quadkeys",
     "streetaddress",
