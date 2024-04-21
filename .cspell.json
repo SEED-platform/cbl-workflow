@@ -3,11 +3,13 @@
   "language": "en",
   "words": [
     "autoload",
+    "geodataframe",
     "quadkey",
     "quadkeys",
     "streetaddress",
     "subaddress",
     "tqdm",
+    "UBID",
     "usaddress",
     "ZZYYY"
   ],

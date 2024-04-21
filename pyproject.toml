@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Alex Swindler <alex.swinder@nrel.gov>", "Nicholas Long <nicholas.long@nrel.gov>"]
 readme = "README.md"
+# should probably rename utils to cbl_workflow, then place
+# the utils in that folder.
+packages = [{include = "utils"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.13"
@@ -22,7 +25,8 @@ setuptools = "^69.2.0"
 pre-commit = "^3.7.0"
 
 [build-system]
-requires = ["poetry-core"]
+# Need to provide the build system information for the package to be built
+requires = ["poetry-core", "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 # https://docs.astral.sh/ruff/tutorial/#configuration
