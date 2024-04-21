@@ -9,6 +9,7 @@ import json
 import os
 import sys
 import warnings
+from pathlib import Path
 from typing import Any
 
 import geopandas as gpd
@@ -37,8 +38,9 @@ def main():
     if not os.path.exists("locations.json"):
         sys.exit("Missing locations.json file")
 
-    if not os.path.exists("data/quadkeys"):
-        os.makedirs("data/quadkeys")
+    quadkey_path = Path("data/quadkeys")
+    if not quadkey_path.exists():
+        quadkey_path.mkdir(parents=True, exist_ok=True)
 
     with open("locations.json") as f:
         locations: list[Location] = json.load(f)
