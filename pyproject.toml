@@ -12,8 +12,8 @@ packages = [{include = "utils"}]
 python = ">=3.9, <3.13"
 
 pnnl-buildingid = {git = "https://github.com/seed-platform/buildingid.git", rev = "master"}
-usaddress = "^0.5.10"
-street-address = "^0.4.0"
+usaddress = "0.5.10"
+street-address = "0.4.0"
 geopandas = "^0.14.3"
 mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
