@@ -7,7 +7,7 @@ See also https://github.com/seed-platform/seed/main/LICENSE.md
 import re
 
 import usaddress
-from streetaddress import StreetAddressFormatter
+from streetaddress.streetaddress import StreetAddressFormatter
 
 
 def _normalize_subaddress_type(subaddress_type):
