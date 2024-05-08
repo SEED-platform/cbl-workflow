@@ -132,13 +132,7 @@ def get_node_coordinates(node_ids: list[int]):
 
         # Extract the latitude and longitude coordinates of the node from the response
         for element in data["elements"]:
-            if (
-                "type" in element
-                and element["type"] == "node"
-                and "id" in element
-                and "lat" in element
-                and "lon" in element
-            ):
+            if "type" in element and element["type"] == "node" and "id" in element and "lat" in element and "lon" in element:
                 lat = float(element["lat"])
                 lon = float(element["lon"])
                 # Check if coordinates are within valid range
@@ -260,9 +254,7 @@ def process_dataframe_for_osm_buildings(
 
     # check that the method is valid
     if method not in ["geometry_centroid", "osm_id", "lat_long"]:
-        raise ValueError(
-            f"Invalid processing method: {method}, must be one of ['geometry_centroid', 'osm_id', 'lat_long']"
-        )
+        raise ValueError(f"Invalid processing method: {method}, must be one of ['geometry_centroid', 'osm_id', 'lat_long']")
 
     results = []
     error_processing = []

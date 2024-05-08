@@ -142,9 +142,7 @@ def normalize_address(address_val: str):
             normalized_address = _normalize_address_number(addr["AddressNumber"])
 
         if "StreetNamePreDirectional" in addr and addr["StreetNamePreDirectional"] is not None:
-            normalized_address = (
-                normalized_address + " " + _normalize_address_direction(addr["StreetNamePreDirectional"])
-            )
+            normalized_address = normalized_address + " " + _normalize_address_direction(addr["StreetNamePreDirectional"])
 
         if "StreetName" in addr and addr["StreetName"] is not None:
             normalized_address = normalized_address + " " + addr["StreetName"]
@@ -154,9 +152,7 @@ def normalize_address(address_val: str):
             normalized_address = normalized_address + " " + _normalize_address_post_type(addr["StreetNamePostType"])
 
         if "StreetNamePostDirectional" in addr and addr["StreetNamePostDirectional"] is not None:
-            normalized_address = (
-                normalized_address + " " + _normalize_address_direction(addr["StreetNamePostDirectional"])
-            )
+            normalized_address = normalized_address + " " + _normalize_address_direction(addr["StreetNamePostDirectional"])
 
         if "SubaddressType" in addr and addr["SubaddressType"] is not None:
             normalized_address = normalized_address + " " + _normalize_subaddress_type(addr["SubaddressType"])

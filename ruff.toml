@@ -61,8 +61,11 @@ ignore = [
     "Q000",    # bad-quotes-inline-string
     "RUF012",  # mutable-class-default
     "S106",    # hardcoded-password-func-arg
+    "S113",    # Probable use of requests call without timeout
+    "SIM115",  # Use context handler for opening files
     "S311",    # suspicious-non-cryptographic-random-usage
     "S320",    # suspicious-xmle-tree-usage
+    "S324",    # Probable use of insecure hash functions in `hashlib`: `md5`
     "S603",    # subprocess-without-shell-equals-true
     "S607",    # start-process-with-partial-path
     "S701",    # jinja2-autoescape-false

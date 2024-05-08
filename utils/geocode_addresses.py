@@ -44,9 +44,7 @@ def _process_result(result):
         for i in range(1, 7):
             if result.get("locations")[0].get(f"adminArea{i}Type") is None:
                 continue
-            admin_areas[result.get("locations")[0].get(f"adminArea{i}Type").lower()] = result.get("locations")[0].get(
-                f"adminArea{i}"
-            )
+            admin_areas[result.get("locations")[0].get(f"adminArea{i}Type").lower()] = result.get("locations")[0].get(f"adminArea{i}")
 
         return {
             "quality": quality,
@@ -81,15 +79,13 @@ def geocode_addresses(locations: list[Location], mapquest_api_key: str):
             # Catch invalid API key error before parsing the response
             if response.status_code == 401:
                 raise MapQuestAPIKeyError(
-                    "Failed geocoding property states due to MapQuest error. "
-                    "API Key is invalid with message: {response.content}."
+                    "Failed geocoding property states due to MapQuest error. " "API Key is invalid with message: {response.content}."
                 )
             results += response.json().get("results")
         except Exception as e:
             if response.status_code == 403:
                 raise MapQuestAPIKeyError(
-                    "Failed geocoding property states due to MapQuest error. "
-                    "Your MapQuest API Key is either invalid or at its limit."
+                    "Failed geocoding property states due to MapQuest error. " "Your MapQuest API Key is either invalid or at its limit."
                 )
             else:
                 raise e

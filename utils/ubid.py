@@ -13,9 +13,7 @@ from shapely.geometry import Point, Polygon
 def encode_ubid(geometry: Polygon) -> str:
     min_longitude, min_latitude, max_longitude, max_latitude = geometry.bounds
     centroid = geometry.centroid
-    ubid = encode(
-        min_latitude, min_longitude, max_latitude, max_longitude, centroid.y, centroid.x, codeLength=PAIR_CODE_LENGTH_
-    )
+    ubid = encode(min_latitude, min_longitude, max_latitude, max_longitude, centroid.y, centroid.x, codeLength=PAIR_CODE_LENGTH_)
     return ubid
 
 
