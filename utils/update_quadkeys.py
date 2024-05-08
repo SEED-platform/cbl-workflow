@@ -16,12 +16,12 @@ def update_quadkeys(quadkeys: list[int], save_directory: Path = Path("data/quadk
     Skip the download if it has already been downloaded, and it is up-to-date
     """
     save_directory.mkdir(parents=True, exist_ok=True)
-    df = pd.read_csv(save_directory / "dataset-links.csv")
+    df_update = pd.read_csv(save_directory / "dataset-links.csv")
 
     for quadkey in tqdm(quadkeys):
         download = True
         quadkey_file = save_directory / f"{quadkey}.geojsonl.gz"
-        rows = df[df["QuadKey"] == quadkey]
+        rows = df_update[df_update["QuadKey"] == quadkey]
         if rows.shape[0] == 1:
             url = rows.iloc[0]["Url"]
         elif rows.shape[0] > 1:
