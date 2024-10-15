@@ -14,15 +14,15 @@ python = ">=3.9, <3.13"
 pnnl-buildingid = {git = "git@github.com:SEED-platform/buildingid.git", rev = "master"}
 usaddress = "0.5.10"
 street-address = "0.4.0"
-geopandas = "^0.14.3"
+geopandas = "^1.0.1"
 mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
-requests = "^2.31.0"
-shapely = "^2.0.3"
+requests = "^2.32.3"
+shapely = "^2.0.6"
 setuptools = "^69.2.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.7.0"
+pre-commit = "^3.8.0"
 
 [build-system]
 # Need to provide the build system information for the package to be built
