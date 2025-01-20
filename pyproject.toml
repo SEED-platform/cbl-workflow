@@ -11,8 +11,7 @@ packages = [{include = "utils"}]
 [tool.poetry.dependencies]
 python = ">=3.9, <3.13"
 
-# pnnl-buildingid = {git = "https://github.com/SEED-platform/buildingid.git", rev = "master"}
-pnnl-buildingid = {git = "git@github.com:SEED-platform/buildingid.git", rev = "master"}
+pnnl-buildingid = {git = "https://github.com/SEED-platform/buildingid.git", rev = "master"}
 usaddress = "0.5.11"
 street-address = "0.4.0"
 geopandas = "^1.0.1"

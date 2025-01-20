@@ -500,7 +500,7 @@ test = ["coverage", "nose"]
 
 [package.source]
 type = "git"
-url = "ssh://git@github.com/SEED-platform/buildingid.git"
+url = "https://github.com/SEED-platform/buildingid.git"
 reference = "master"
 resolved_reference = "df04c152d2cb3745b4c93a27ecdf97cfe45add13"
 
@@ -1051,4 +1051,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9, <3.13"
-content-hash = "48cd65eb7f5e8d97d2c9ece22a4f8f5b6317c936556e791832f8769f8df13383"
+content-hash = "a75dcd51257dd1598da486c68848d978d8875895c8eaaec14e9acdd2c8b06b2b"
