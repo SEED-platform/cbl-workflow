@@ -11,18 +11,18 @@ packages = [{include = "utils"}]
 [tool.poetry.dependencies]
 python = ">=3.9, <3.13"
 
-pnnl-buildingid = {git = "git@github.com:SEED-platform/buildingid.git", rev = "master"}
-usaddress = "0.5.10"
+pnnl-buildingid = {git = "https://github.com/SEED-platform/buildingid.git", rev = "master"}
+usaddress = "0.5.11"
 street-address = "0.4.0"
 geopandas = "^1.0.1"
 mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.3"
 shapely = "^2.0.6"
-setuptools = "^69.2.0"
+setuptools = "^75.8.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.8.0"
+pre-commit = "^4.0.1"
 
 [build-system]
 # Need to provide the build system information for the package to be built

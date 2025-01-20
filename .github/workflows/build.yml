@@ -17,6 +17,7 @@ jobs:
       uses: snok/install-poetry@v1.3.4
     - name: Install dependencies
       run: |
+        poetry --version
         python -m pip install --upgrade pip
         poetry install
     - name: Build package

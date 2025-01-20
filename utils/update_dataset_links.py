@@ -10,7 +10,7 @@ from pathlib import Path
 
 import requests
 
-DATASET_URL = "https://minedbuildings.blob.core.windows.net/global-buildings/dataset-links.csv"
+DATASET_URL = "https://minedbuildings.z5.web.core.windows.net/global-buildings/dataset-links.csv"
 
 
 def update_dataset_links(save_directory: Path = Path("data/quadkeys")):
