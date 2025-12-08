@@ -16,7 +16,7 @@ buildingid-nrel = "^2.2"
 usaddress = "0.5.16"
 street-address = "0.4.0"
 
-# geopandas below 1.0 keeps Shapely <2.0, to avoid 
+# geopandas below 1.0 keeps Shapely <2.0, to avoid
 # conflicts with nrel-disco's requirements for Shapely (via pydss)
 geopandas = "<1.0"
 mercantile = "^1.2.1"
