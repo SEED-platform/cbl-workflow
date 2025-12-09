@@ -9,7 +9,8 @@ packages = [{ include = "building_data_utilities", from = "." }]
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.13"
-
+# Keep click <8.2 for compatibility with SEED (see SEED's requirements)
+click = "<8.2"
 # use NREL maintained building ID
 buildingid-nrel = "^2.2"
 
