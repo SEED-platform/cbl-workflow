@@ -11,11 +11,14 @@ packages = [{ include = "building_data_utilities", from = "." }]
 python = ">=3.9, <3.13"
 
 # use NREL maintained building ID
-buildingid-nrel = "^2.2.0"
+buildingid-nrel = "^2.2"
 
 usaddress = "0.5.16"
 street-address = "0.4.0"
-geopandas = "^1.0.1"
+
+# geopandas below 1.0 keeps Shapely <2.0, to avoid
+# conflicts with nrel-disco's requirements for Shapely (via pydss)
+geopandas = "<1.0"
 mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.5"
