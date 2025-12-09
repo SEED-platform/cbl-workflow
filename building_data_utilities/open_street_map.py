@@ -16,7 +16,7 @@ OVERPASS_URL = "http://overpass-api.de/api/interpreter"
 def reverse_geocode(lat, lon):
     """should only call at 1 per second per user agreement, no threaded calls either. This
     is per the license agreement"""
-    geolocator = Nominatim(user_agent="CBL")
+    geolocator = Nominatim(user_agent="building-data-utilities")
     location = geolocator.reverse((lat, lon), language="en", exactly_one=True)
 
     return location.raw
@@ -160,7 +160,7 @@ def get_node_coordinates(node_ids: list[int]):
 
 def neighboring_buildings(location):
     """This doesn't appear to work, yet...."""
-    geolocator = Nominatim(user_agent="CBL-neighbors")
+    geolocator = Nominatim(user_agent="building-data-utilities-neighbors")
     # Extract address information from the location
     address = location.get("address")
 
