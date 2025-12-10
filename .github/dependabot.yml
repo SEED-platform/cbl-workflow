@@ -3,12 +3,14 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     groups:
       dev-deps:
         dependency-type: "development"
       prod-deps:
         dependency-type: "production"
+    ignore:
+      - dependency-name: "geopandas"
     open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
@@ -17,7 +19,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/angular-app"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     groups:
       npm-dev-deps:
         dependency-type: "development"
@@ -31,7 +33,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     groups:
       actions-deps:
         patterns:
