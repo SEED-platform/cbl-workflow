@@ -3,7 +3,7 @@
 name = "building-data-utilities"
 version = "0.1.0"
 description = "Utilities for parsing and understanding building-related data to support covered building list development."
-authors = ["Alex Swindler <alex.swinder@nrel.gov>", "Nicholas Long <nicholas.long@nrel.gov>", "Katherine Fleming <katherine.fleming@nrel.gov>"]
+authors = ["Alex Swindler <alex.swinder@nlr.gov>", "Nicholas Long <nicholas.long@nlr.gov>", "Katherine Fleming <katherine.fleming@nlr.gov>"]
 readme = "README.md"
 packages = [{ include = "building_data_utilities", from = "." }]
 
@@ -11,14 +11,11 @@ packages = [{ include = "building_data_utilities", from = "." }]
 python = ">=3.10, <3.14"
 # Keep click <8.2 for compatibility with SEED (see SEED's requirements)
 click = "<8.2"
-# use NREL maintained building ID
+# use NLR maintained building ID
 buildingid-nrel = "^2.2"
 
 usaddress = "0.5.16"
 street-address = "0.4.0"
-
-# geopandas below 1.0 keeps Shapely <2.0, to avoid
-# conflicts with nrel-disco's requirements for Shapely (via pydss)
 geopandas = "<1.0"
 mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
