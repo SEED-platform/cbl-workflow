@@ -370,8 +370,9 @@ class TestGeocodeAddressesIntegration:
     def test_geocode_addresses_real_amazon_api(self):
         """Integration test: actually calls the Amazon geocoding API (requires valid API key and base URL)"""
         if not self.api_key or not self.base_url or not self.app_id:
-            # fail the test
-            pytest.fail("AMAZON_API_KEY and AMAZON_BASE_URL and AMAZON_APP_ID environment variables not set")
+            # Skip (rather than fail) since these secrets aren't available in CI runs triggered by
+            # Dependabot or forks (GitHub withholds repo secrets from those workflow runs).
+            pytest.skip("AMAZON_API_KEY and AMAZON_BASE_URL and AMAZON_APP_ID environment variables not set")
 
         # Casa Bonita, Lakewood, Colorado
         locations = [Location(street="6715 W Colfax Ave", city="Lakewood", state="")]
