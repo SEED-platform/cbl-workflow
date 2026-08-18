@@ -21,7 +21,7 @@ mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.5"
 shapely = "^2.0.6"
-setuptools = "^80.9.0"
+setuptools = ">=80.9,<85.0"
 nominatim = "^0.1"
 geopy = "^2.4.1"
 
