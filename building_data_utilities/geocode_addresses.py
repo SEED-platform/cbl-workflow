@@ -72,9 +72,9 @@ def geocode_addresses(
     results = []
 
     # Amazon Location Services is limited to 1 address per request, 100 requests per second
-    # The NREL gateway limits access to 1000 per hour.
+    # The NLR gateway limits access to 1000 per hour.
     # URL example: https://places.geo.us-east-2.api.aws/v2/geocode?api_key
-    # NREL URL example: https://developer.nrel.gov/api/tada/amazon-location-service/places/v2/geocode?api_key
+    # NLR URL example: https://developer.nlr.gov/api/tada/amazon-location-service/places/v2/geocode?api_key
     for location_chunk in chunk(locations, chunk_size=1):
         # reformat location chunk to a string list of addresses
         # data that could be in there are: street, city, state, postal_code, country

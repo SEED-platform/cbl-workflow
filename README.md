@@ -16,7 +16,7 @@ Given a list of addresses, this workflow will automatically go through the follo
 1. Optionally create a Virtualenv Environment
 2. Dependencies are managed through Poetry, install with `pip install poetry`
 3. Install dependencies with `poetry install`
-4. Create a `.env` file in the root with your Amazon Location Services API key in the following format. You will also need to specify the Amazon base url. If none is specified, the following will be used: https://places.geo.us-east-2.api.aws/v2. For NREL gateway, you will also need to specify an APP ID.
+4. Create a `.env` file in the root with your Amazon Location Services API key in the following format. You will also need to specify the Amazon base url. If none is specified, the following will be used: https://places.geo.us-east-2.api.aws/v2. For NLR gateway, you will also need to specify an APP ID.
 
    ```dotenv
    AMAZON_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -26,7 +26,7 @@ Given a list of addresses, this workflow will automatically go through the follo
 
 Note that if the env keys for AMAZON_API_KEY, AMAZON_BASE_URL, and AMAZON_APP_ID exist in your profile, then it use that over the .env file.
 
-For NREL users using the rate-limited key, use the following as the AMAZON_BASE_URL: https://developer.nrel.gov/api/tada/amazon-location-service/places/v2
+For NLR users using the rate-limited key, use the following as the AMAZON_BASE_URL: https://developer.nlr.gov/api/tada/amazon-location-service/places/v2
 
 Due to the nature of this application, we are passing IntendedUse=Storage to the Amazon Location Services API. This results in a slightly higher rate per transaction, but allows us to store the results.
 
