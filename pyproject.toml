@@ -3,15 +3,15 @@
 name = "building-data-utilities"
 version = "0.1.0"
 description = "Utilities for parsing and understanding building-related data to support covered building list development."
-authors = ["Alex Swindler <alex.swinder@nrel.gov>", "Nicholas Long <nicholas.long@nrel.gov>", "Katherine Fleming <katherine.fleming@nrel.gov>"]
+authors = ["Alex Swindler <alex.swinder@nlr.gov>", "Nicholas Long <nicholas.long@nlr.gov>", "Katherine Fleming <katherine.fleming@nlr.gov>"]
 readme = "README.md"
 packages = [{ include = "building_data_utilities", from = "." }]
 
 [tool.poetry.dependencies]
-python = ">=3.9, <3.13"
+python = ">=3.10, <3.14"
 # Keep click <8.2 for compatibility with SEED (see SEED's requirements)
 click = "<8.2"
-# use NREL maintained building ID
+# use NLR maintained building ID
 buildingid-nrel = "^2.2"
 
 usaddress = "0.5.16"
@@ -26,7 +26,7 @@ mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.5"
 shapely = "^2.0.6"
-setuptools = "^80.9.0"
+setuptools = ">=80.9,<85.0"
 nominatim = "^0.1"
 geopy = "^2.4.1"
 osmnx = "^2.0.7"
