@@ -12,6 +12,7 @@ from building_data_utilities.open_street_map import (
     download_building_and_nodes_by_id,
     find_nearest_building,
     get_building_id_from_osm_id,
+    get_location_bbox,
     get_node_coordinates,
     neighboring_buildings,
     process_dataframe_for_osm_buildings,
@@ -139,3 +140,59 @@ class TestOpenStreetMapCoverage:
         assert isinstance(errors, list)
         if results:
             assert "extra" in results[0]
+
+
+class TestGetLocationBbox:
+    """These tests will actually call out to OSMnx/Nominatim."""
+
+    def test_get_location_bbox_with_valid_string(self):
+        bbox = get_location_bbox("Denver, CO")
+        assert bbox is not None
+        assert isinstance(bbox, dict)
+        assert bbox.get("type") == "Feature"
+        geometry = bbox.get("geometry")
+        assert geometry is not None
+        assert geometry["type"] in ("Polygon", "MultiPolygon")
+        coords = geometry["coordinates"]
+        assert isinstance(coords, list)
+
+    def test_get_location_bbox_with_valid_dict(self):
+        bbox = get_location_bbox({"place_name": "San Francisco, CA"})
+        assert bbox is not None
+        assert isinstance(bbox, dict)
+        assert bbox.get("type") == "Feature"
+        geometry = bbox.get("geometry")
+        assert geometry is not None
+        assert geometry["type"] in ("Polygon", "MultiPolygon")
+        coords = geometry["coordinates"]
+        assert isinstance(coords, list)
+
+    def test_get_location_bbox_with_invalid_dict(self):
+        bbox = get_location_bbox({"not_a_place": "Nowhere"})
+        assert bbox is None
+
+    def test_get_location_bbox_with_invalid_string(self):
+        bbox = get_location_bbox("asldkfjalsdkfjalskdjflasdjflasdjf")
+        assert bbox is None
+
+    def test_get_location_bbox_sunnyvale(self):
+        bbox = get_location_bbox("Sunnyvale, California, United States")
+        assert bbox is not None
+        assert isinstance(bbox, dict)
+        assert bbox.get("type") == "Feature"
+        geometry = bbox.get("geometry")
+        assert geometry is not None
+        assert geometry["type"] in ("Polygon", "MultiPolygon")
+        coords = geometry["coordinates"]
+        assert isinstance(coords, list)
+
+    def test_get_location_bbox_sunnyvale_with_dict(self):
+        bbox = get_location_bbox({"place_name": "Sunnyvale, California, United States"})
+        assert bbox is not None
+        assert isinstance(bbox, dict)
+        assert bbox.get("type") == "Feature"
+        geometry = bbox.get("geometry")
+        assert geometry is not None
+        assert geometry["type"] in ("Polygon", "MultiPolygon")
+        coords = geometry["coordinates"]
+        assert isinstance(coords, list)

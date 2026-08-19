@@ -16,7 +16,12 @@ buildingid-nrel = "^2.2"
 
 usaddress = "0.5.16"
 street-address = "0.4.0"
-geopandas = "<1.0"
+
+# NOTE: previously pinned to <1.0 to keep Shapely <2.0 for compatibility with nrel-disco's
+# requirements (via pydss). Bumped to >=1.0.1 to support osmnx (used for footprint loading
+# and location geocoding) and to match the version cbl-web-tool already requires. If this
+# causes issues for nrel-disco/pydss consumers, that compatibility will need to be revisited.
+geopandas = ">=1.0.1,<2.0.0"
 mercantile = "^1.2.1"
 python-dotenv = "^1.0.1"
 requests = "^2.32.5"
@@ -24,6 +29,7 @@ shapely = "^2.0.6"
 setuptools = ">=80.9,<85.0"
 nominatim = "^0.1"
 geopy = "^2.4.1"
+osmnx = "^2.0.7"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.3.0"

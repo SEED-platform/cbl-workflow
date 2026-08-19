@@ -9,6 +9,8 @@ updates:
         dependency-type: "development"
       prod-deps:
         dependency-type: "production"
+    allow:
+      - dependency-type: "direct"
     ignore:
       - dependency-name: "geopandas"
     open-pull-requests-limit: 5

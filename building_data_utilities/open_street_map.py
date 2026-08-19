@@ -3,14 +3,96 @@ SEED Platform (TM), Copyright (c) Alliance for Sustainable Energy, LLC, and othe
 See also https://github.com/SEED-platform/building-data-utilities/blob/main/LICENSE.md
 """
 
+import logging
+
+import osmnx as ox
 import requests
 from geopandas.geodataframe import GeoDataFrame
 from geopy.geocoders import Nominatim
-from shapely.geometry import Polygon
+from osmnx._errors import InsufficientResponseError
+from shapely.geometry import MultiPolygon, Polygon
 
 from .ubid import bounding_box, centroid, encode_ubid
 
 OVERPASS_URL = "http://overpass-api.de/api/interpreter"
+
+logger = logging.getLogger(__name__)
+
+
+def get_location_bbox(location_name: str | dict) -> dict | None:
+    """
+    Geocode a place name (e.g. a city, neighborhood, or address) to its boundary polygon,
+    using OpenStreetMap (via osmnx).
+
+    Args:
+        location_name: A place name string, or a dict with a "place_name" key (e.g. a
+            geocoder search result).
+
+    Returns:
+        A GeoJSON Feature dict with the boundary Polygon/MultiPolygon geometry, or None if
+        the location couldn't be geocoded.
+    """
+    # Accept string or dict
+    if isinstance(location_name, dict):
+        if "place_name" in location_name:
+            location_query = location_name["place_name"]
+        else:
+            logger.error(f"location_name dict missing 'place_name': {location_name}")
+            return None
+    elif isinstance(location_name, str):
+        location_query = location_name
+    else:
+        logger.error(f"location_name is not str or dict: {location_name}")
+        return None
+
+    logger.info(f"Geocoding location: {location_query}")
+    try:
+        geocode_result = ox.geocode_to_gdf(location_query)
+        logger.info(f"Geocode result: {geocode_result}")
+    except InsufficientResponseError as e:
+        logger.warning(f"No geocode results for location: {location_query} ({e})")
+        return None
+    except Exception as e:
+        logger.error(f"Geocoding failed for '{location_query}': {e}")
+        raise
+    if geocode_result.empty:
+        logger.warning(f"No geocode results for location: {location_query}")
+        return None
+
+    # Return a valid GeoJSON Feature for the polygon or multipolygon
+    geom = geocode_result.geometry.iloc[0]
+    if geom.is_empty:
+        logger.warning(f"Geometry is empty for location: {location_query}")
+        return None  # Handle empty geometries gracefully
+
+    def polygon_to_coords(polygon):
+        rings = [list(polygon.exterior.coords)]
+        rings += [list(interior.coords) for interior in polygon.interiors]
+        return rings
+
+    geometry_type = None
+    coordinates = None
+    if isinstance(geom, Polygon):
+        geometry_type = "Polygon"
+        coordinates = polygon_to_coords(geom)
+    elif isinstance(geom, MultiPolygon):
+        geometry_type = "MultiPolygon"
+        coordinates = [polygon_to_coords(part) for part in geom.geoms if isinstance(part, Polygon)]
+    else:
+        logger.warning(f"Unsupported geometry type for location: {location_query}")
+        return None  # Unsupported geometry
+
+    # Coordinates from Shapely are already in (lon, lat) order; no swap needed
+    geojson = {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+            "type": geometry_type,
+            "coordinates": coordinates,
+        },
+    }
+    logger.info(f"Final GeoJSON Feature: {geojson}")
+    return geojson
 
 
 def reverse_geocode(lat, lon):
