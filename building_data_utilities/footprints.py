@@ -622,9 +622,7 @@ def merge_footprint_geodataframes(gdf_1: gpd.GeoDataFrame, gdf_2: gpd.GeoDataFra
                 else ""
             )
             streets = (
-                combined_gdf.loc[empty_street_mask, "addr:street"].astype(str).str.strip()
-                if "addr:street" in combined_gdf.columns
-                else ""
+                combined_gdf.loc[empty_street_mask, "addr:street"].astype(str).str.strip() if "addr:street" in combined_gdf.columns else ""
             )
 
             street_addresses = []
